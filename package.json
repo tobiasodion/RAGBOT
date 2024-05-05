@@ -1,0 +1,19 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "chatbot": "dotenv -e .env.local node index.js",
+    "chatbot:rag": "dotenv -e .env.local node index_rag.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "langchain": "^0.1.36",
+    "mammoth": "^1.7.2"
+  }
+}

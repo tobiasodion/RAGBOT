@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "chatbot": "dotenv -e .env.local node index.js",
-    "chatbot:rag": "dotenv -e .env.local node index_rag.js"
+    "chatbot": "node --env-file=.env.local index.js",
+    "chatbot:rag": "node --env-file=.env.local index_rag.js"
   },
   "author": "",
   "license": "ISC",

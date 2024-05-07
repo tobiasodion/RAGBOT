@@ -21,7 +21,7 @@ const main = async () => {
       "Who is the current comptroller general of Nigeria Immigration service?",
   });
 
-  console.log(result.content);
+  console.log(result);
 };
 
 main();

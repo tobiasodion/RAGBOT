@@ -22,3 +22,5 @@ References
 [Embeddings](https://platform.openai.com/docs/guides/embeddings)
 [RAG Article](https://medium.com/@bijit211987/rag-vs-vectordb-2c8cb3e0ee52)
 [VectorDB Service](https://qdrant.tech/)
+
+Watch Recording [here](https://drive.google.com/file/d/1goNpRpVwbPUdBUx5CHHMY8kBMS9SW05I/view?usp=drive_link)

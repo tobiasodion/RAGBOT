@@ -9,8 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "chatbot": "node --env-file=.env.local index.js",
-    "chatbot:rag": "node --env-file=.env.local index_rag.js"
+    "chatbot": "node --env-file=.env.local src/chatbot.js"
   },
   "author": "",
   "license": "ISC",

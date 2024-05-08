@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "chatbot": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "chatbot": "node --env-file=.env.local index.js",
@@ -14,6 +17,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "langchain": "^0.1.36",
-    "mammoth": "^1.7.2"
+    "mammoth": "^1.7.2",
+    "yargs": "^17.7.2"
   }
 }

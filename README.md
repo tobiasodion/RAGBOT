@@ -10,11 +10,12 @@ An overview of the RAG architecture for improving and adapting LLM to specific u
 
 ### Steps
 
+- Link the CLI app to the OS by running `npm link`
 - Install dependencies by running `npm install`
 - create a copy of the .env.example file by running `cp .env.example .env.local` in terminal
 - update the env variables with the required keys in the `.env.local` file created in the previous step.
 - Run the simple version by running `npm run chatbot`
-- Run the RAG version by running `npm run chatbot:rag`
+- Start the chatbot by running `chatbot start`
 
 References
 [Langchain documentation](https://js.langchain.com/docs/get_started/quickstart)

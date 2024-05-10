@@ -5,7 +5,7 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 const main = async () => {
   const chatModel = new ChatOpenAI({
     temperature: 0,
-    model: "gpt-3.5-turbo",
+    model: "gpt-4-turbo",
   });
 
   const prompt = ChatPromptTemplate.fromMessages([

@@ -39,16 +39,11 @@ const answerQuestion = async (vectorStore, question) => {
 
 Question: {input}`);
 
-    //Init the gpt chat model
     const chatModel = new ChatOpenAI({
       temperature: 0,
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-turbo",
     });
 
-    //init the output parser
-    //const outputParser = new StringOutputParser();
-
-    //create the doucment chain from - the model and prompt template
     const documentChain = await createStuffDocumentsChain({
       llm: chatModel,
       prompt,

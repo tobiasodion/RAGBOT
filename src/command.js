@@ -7,17 +7,23 @@ import { crawlWebsite } from "./crawler.js";
 
 yargs(hideBin(process.argv))
   .command({
-    command: "start",
+    command: "start <url>",
     describe:
-      "Start the chatbot to respond to questions about the configured website",
-    handler: async () => {
+      "Start the chatbot to respond to questions about the website identified by the url",
+    handler: async (argv) => {
       try {
-        console.log("Initializing the website chatbot...");
-        const DATA_FOLDER = process.env.DATA_FOLDER || "";
-        const WEBSITE_URL = process.env.WEBSITE_URL || "";
-        const CRAWL_MAX_DEPTH = process.env.CRAWL_MAX_DEPTH || "";
+        const url = argv.url.replace(/www\./gi, "");
+        const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#]+\.[^\s/$.?#]+/i;
+        if (!urlRegex.test(url)) {
+          console.log("Invalid url", argv.url);
+          throw new Error();
+        }
 
-        const urlDomain = new URL(WEBSITE_URL).hostname;
+        const websiteUrl = new URL(url);
+        console.log(`Initializing the chatbot for ${websiteUrl}...`);
+        const DATA_FOLDER = process.env.DATA_FOLDER || "";
+        const CRAWL_MAX_DEPTH = process.env.CRAWL_MAX_DEPTH || "";
+        const urlDomain = websiteUrl.hostname;
         const linksJsonPath = `${DATA_FOLDER}/${urlDomain}/links.json`;
 
         const linksToIndex = await readFromFile(linksJsonPath);
@@ -25,10 +31,10 @@ yargs(hideBin(process.argv))
 
         if (!linksToIndexJson) {
           console.log(
-            `No link found in json file. Attempting to crawl ${WEBSITE_URL}...`
+            `No link found in json file. Attempting to crawl ${websiteUrl}`
           );
           linksToIndexJson = await crawlWebsite(
-            WEBSITE_URL,
+            websiteUrl.toString(),
             CRAWL_MAX_DEPTH,
             urlDomain
           );
@@ -50,6 +56,8 @@ yargs(hideBin(process.argv))
         askQuestion(vectorStore);
       } catch (e) {
         console.log(e);
+        console.log("Oops! something went wrong");
+        process.exit(1);
       }
     },
   })

@@ -4,3 +4,6 @@ node_modules
 #env 
 .env
 .env.local
+
+#generated data
+data

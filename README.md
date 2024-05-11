@@ -1,6 +1,6 @@
-# RAG Tutorial
+# Overview
 
-An overview of the RAG architecture for improving and adapting LLM to specific use cases. This CLI chatbot app allows users to ask questions about a website which is provided as context. This chatbot empowers users to retrieve information from a website that may not have been in the training dataset of open-source LLMs.
+A chatbot that uses RAG architecture for improving and adapting LLM to specific use cases. This CLI chatbot app allows users to ask questions about a website which is provided as context. This chatbot empowers users to retrieve information from a website that may not have been in the training dataset of open-source LLMs.
 
 ## Use case
 

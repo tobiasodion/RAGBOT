@@ -8,13 +8,13 @@ A CLI chatbot that uses RAG architecture for improving and adapting LLM to speci
 
 Asking the OpenAI GPT LLM about the Nigerian Immigration Service(Question: _Who is the current comptroller general of Nigeria Immigration Service as at 2023?_) by running the script `chatbot simple` will give some outdated result as shown below:
 
-![alt text](result.png)
+![result without RAG](result.png)
 
 ### With RAG - Response from website provided as context
 
 By using the CLI website chatbot which extends the OpenAI GPT LLM with RAG we get a more useful result. We can use this chatbot by running `chatbot rag https://immigration.gov.ng/current-and-past-leaders-of-the-nis/` and asking the same question - _Who is the current comptroller general of Nigeria Immigration Service as at 2023?_. This gives a more current result as shown below:
 
-![alt text](documentation/result_with_rag.png)
+![result with RAG](documentation/result_with_rag.png)
 
 #### How it works
 

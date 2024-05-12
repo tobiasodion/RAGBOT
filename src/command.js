@@ -1,17 +1,23 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { indexDocuments } from "./indexer.js";
-import { askQuestion } from "./chatbot_rag.js";
+import { askQuestion } from "./chatbot.js";
 import { writeToFile } from "./utils/file.js";
 import { crawlWebsite } from "./crawler.js";
 import { createChain } from "./chain.js";
+import { model } from "./aiConfig.js";
 
 yargs(hideBin(process.argv))
   .command(
     "simple",
     "start the chatbot to answer questions based on a custom LLM",
-    async (argv) => {
-      console.log("hello world");
+    async () => {
+      console.log(
+        `Welcome to RAGBOT!\nYour questions will be answered based on information on the ${model} LLM\nType your questions or type "q" to quit.`
+      );
+
+      const chain = await createChain();
+      askQuestion(chain);
     }
   )
   .command(
@@ -66,7 +72,7 @@ yargs(hideBin(process.argv))
 
         const vectorStore = await indexDocuments(linksToIndex);
         console.log(
-          'Welcome to the website chatbot! Type your questions or type "q" to quit.'
+          `Welcome to RAGBOT!\nYour questions will be answered based on information from ${argv.url}\nType your questions or type "q" to quit.`
         );
 
         const chain = await createChain(vectorStore);

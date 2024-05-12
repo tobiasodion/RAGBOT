@@ -1,27 +1,37 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { StringOutputParser } from "@langchain/core/output_parsers";
+import readline from "readline";
 
-const main = async () => {
-  const chatModel = new ChatOpenAI({
-    temperature: 0,
-    model: "gpt-4-turbo",
-  });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-  const prompt = ChatPromptTemplate.fromMessages([
-    ["system", "You are a world class technical documentation writer."],
-    ["user", "{input}"],
-  ]);
-  const outputParser = new StringOutputParser();
-
-  const llmChain = prompt.pipe(chatModel).pipe(outputParser);
-
-  const result = await llmChain.invoke({
-    input:
-      "Who is the current comptroller general of Nigeria Immigration service?",
-  });
-
-  console.log(result);
+export const askQuestion = (chain) => {
+  try {
+    rl.question("Ask your question: ", async (question) => {
+      if (question.toLowerCase() === "q") {
+        console.log("Thank you for using the RAGBOT. Goodbye!");
+        rl.close();
+      } else {
+        const answer = await answerQuestion(chain, question);
+        console.log(`Response: ${answer}`);
+        askQuestion(chain);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    console.log("An error occured while responding to your question");
+  }
 };
 
-main();
+const answerQuestion = async (chain, question) => {
+  try {
+    const result = await chain.invoke({
+      input: question,
+    });
+
+    return result.answer ?? result;
+  } catch (e) {
+    console.log(e);
+    console.log("An error occured while getting response from LLM");
+  }
+};

@@ -8,8 +8,7 @@
     "chatbot": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "chatbot": "node --env-file=.env.local src/chatbot.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",

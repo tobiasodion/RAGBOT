@@ -4,8 +4,8 @@ import { indexDocuments } from "./indexer.js";
 import { askQuestion } from "./chatbot.js";
 import { writeToFile } from "./utils/file.js";
 import { crawlWebsite } from "./crawler.js";
-import { createChain } from "./chain.js";
-import { model } from "./aiConfig.js";
+import { createChain } from "./llm/chain.js";
+import { model } from "./llm/aiConfig.js";
 
 yargs(hideBin(process.argv))
   .command(

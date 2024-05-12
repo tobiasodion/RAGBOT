@@ -8,7 +8,7 @@ A CLI chatbot that uses RAG architecture for improving and adapting LLM to speci
 
 Asking the OpenAI GPT LLM about the Nigerian Immigration Service(Question: _Who is the current comptroller general of Nigeria Immigration Service as at 2023?_) by running the script `chatbot simple` will give some outdated result as shown below:
 
-![result without RAG](result.png)
+![result without RAG](documentation/result.png)
 
 ### With RAG - Response from website provided as context
 

@@ -2,6 +2,8 @@
 
 A CLI chatbot that uses RAG architecture for improving and adapting LLM to specific context. It allows users to ask questions and get response directly from open-source LLMs(OpenAI, MistralAI etc.) or from the information on a website which is provided as context using the RAG architecture. This chatbot empowers users to retrieve information from a website that may not have been in the training dataset of open-source LLMs or get current information from a website that may have been updated after the open-source LLM was trained.
 
+![RAGBOT DFD](documentation/RAGBOT.svg)
+
 ## Use cases
 
 ### Without RAG - Response from Open source LLMs
@@ -41,7 +43,7 @@ The chatbot crawls the given URL to the provided depth(default = 0) and indexes 
 **NB:**
 
 - Be careful when changing the default crawl depth to protect the memory because the crawled website contents are indexed In-Memory. Hence, the higher the crawl depth the more the memory that will be needed to index the website data.
-- I will recommend a max crawl depth of 2 to be on the safe side. However, you must apply caution and take into consideration the memory of your machine.
+- I will recommend a max crawl depth of 2 to be on the safe side. However, you will need to take caution and take into consideration the memory of your machine.
 - This project is intended for learning purposes where the crawl depth(by extension data volume) is expected to be small. If you wish to use in a production environment where the data volume is expected to be high, kindly use a third-party VectorDB service provider(e.g [qdrant](https://qdrant.tech/), [pinecone](https://www.pinecone.io/),[mongodb](https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-quick-start/#objectives))
 
 References

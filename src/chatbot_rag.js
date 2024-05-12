@@ -1,7 +1,3 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { createRetrievalChain } from "langchain/chains/retrieval";
-import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -9,16 +5,16 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-export const askQuestion = (vectorStore) => {
+export const askQuestion = (chain) => {
   try {
     rl.question("Ask your question: ", async (question) => {
       if (question.toLowerCase() === "q") {
         console.log("Thank you for using the Website chatbot. Goodbye!");
         rl.close();
       } else {
-        const answer = await answerQuestion(vectorStore, question);
+        const answer = await answerQuestion(chain, question);
         console.log(`Response: ${answer}`);
-        askQuestion(vectorStore);
+        askQuestion(chain);
       }
     });
   } catch (e) {
@@ -27,43 +23,15 @@ export const askQuestion = (vectorStore) => {
   }
 };
 
-const answerQuestion = async (vectorStore, question) => {
+const answerQuestion = async (chain, question) => {
   try {
-    //Create the prompt template with context
-    const prompt =
-      ChatPromptTemplate.fromTemplate(`Answer the following question based only on the provided context:
-
-<context>
-{context}
-</context>
-
-Question: {input}`);
-
-    const chatModel = new ChatOpenAI({
-      temperature: 0,
-      model: "gpt-4-turbo",
-    });
-
-    const documentChain = await createStuffDocumentsChain({
-      llm: chatModel,
-      prompt,
-    });
-
-    const retriever = vectorStore.asRetriever();
-
-    const retrievalChain = await createRetrievalChain({
-      combineDocsChain: documentChain,
-      retriever,
-    });
-
-    //query the model
-    const result = await retrievalChain.invoke({
+    const result = await chain.invoke({
       input: question,
     });
 
     return result.answer;
   } catch (e) {
     console.log(e);
-    console("An error occured while getting response from LLM");
+    console.log("An error occured while getting response from LLM");
   }
 };

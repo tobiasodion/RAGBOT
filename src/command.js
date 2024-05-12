@@ -2,21 +2,27 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { indexDocuments } from "./indexer.js";
 import { askQuestion } from "./chatbot_rag.js";
-import { readFromFile, writeToFile } from "./utils/file.js";
+import { writeToFile } from "./utils/file.js";
 import { crawlWebsite } from "./crawler.js";
+import { createChain } from "./chain.js";
 
 yargs(hideBin(process.argv))
-  .command({
-    command: "start <url>",
-    describe:
-      "Start the chatbot to answer questions based on information from the website",
-    builder: {
-      depth: {
-        describe: "the depth to which the url should be crawled",
-        default: 0,
-      },
+  .command(
+    "simple",
+    "start the chatbot to answer questions based on a custom LLM",
+    async (argv) => {
+      console.log("hello world");
+    }
+  )
+  .command(
+    "rag <url>",
+    "Start the chatbot to answer questions based on information from the website",
+    (yargs) => {
+      return yargs.positional("url", {
+        describe: "url of website to serve as context",
+      });
     },
-    handler: async (argv) => {
+    async (argv) => {
       try {
         const url = argv.url.replace(/www\./gi, "");
         const crawlDepth = argv.depth;
@@ -62,13 +68,21 @@ yargs(hideBin(process.argv))
         console.log(
           'Welcome to the website chatbot! Type your questions or type "q" to quit.'
         );
-        askQuestion(vectorStore);
+
+        const chain = await createChain(vectorStore);
+        askQuestion(chain);
       } catch (e) {
         console.log(e);
         console.log("Oops! something went wrong");
         process.exit(1);
       }
-    },
+    }
+  )
+  .option("depth", {
+    alias: "d",
+    type: "number",
+    description: "the depth to which the url should be crawled",
+    default: 0,
   })
-  .demandCommand(2)
+  .demandCommand(1)
   .parse();
